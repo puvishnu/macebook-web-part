@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+{% load static %}
+	<head>
+		<title>Macebook Home</title>
+		<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<style>
+			form { 
+			margin: 0 auto; 
+			width:350px;
+			padding-top: 50px;
+			padding-left: 12px;
+			padding-right: 12px;
+			}
+			table { 
+			margin: 0 auto; 
+			width:350px;
+			padding-top: 50px;
+			padding-left: 12px;
+			padding-right: 12px;
+			}
+			.alert {
+			  padding: 20px;
+			  background-color:green;
+			  color: white;
+			}
+			
+			.closebtn {
+			  margin-left: 15px;
+			  color:beige;
+			  font-weight: bold;
+			  float: right;
+			  font-size: 22px;
+			  line-height: 20px;
+			  cursor: pointer;
+			  transition: 0.3s;
+			}
+			
+			.closebtn:hover {
+			  color:beige;
+			}
+			</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="account">GO HOME</a>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="account">Home</a></li>
+					<li><a href="logout">Log out</a></li>
+				</ul>
+			</nav>
+			{% for message in messages %}
+			<div class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+				{{message}}
+			  </div>
+            		{% endfor %} 
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<h1>Add New Designation</h1>
+				</div>
+			</section>
+
+        <!-- Highlights -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Designation</th>
+           
+                </tr>
+            </thead>
+            <tbody>
+            {% for r in staff %}
+                    <tr>
+                        <td>{{r.stafftype}}</td>
+                    
+                    </tr>
+            {% endfor %}
+            </tbody>
+		</table>
+		<form class="login100-form validate-form" action="addstaff" method="POST">{% csrf_token %}
+		<div class="wrap-input100 validate-input" data-validate = "Valid designation name is required">
+			<input class="input100" type="text" name="type" placeholder="Enter new designation"  required>
+			<span class="focus-input100-1"></span>
+			<span class="focus-input100-2"></span>
+		</div>
+		<div class="container-login100-form-btn m-t-20" style="padding-top: 20px;align-items: center;">
+			<button class="login100-form-btn" >
+				Submit
+			</button>
+		</div>
+		</form>
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

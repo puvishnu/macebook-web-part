@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+{% load static %}
+	<head>
+		<title>Macebook Home</title>
+		<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<style>
+			table { 
+			margin: 0 auto; 
+			width:650px;
+			padding-left: 12px;
+			padding-right: 12px;
+			}
+			.alert {
+			  padding: 20px;
+			  background-color:green;
+			  color: white;
+			}
+			
+			.closebtn {
+			  margin-left: 15px;
+			  color:beige;
+			  font-weight: bold;
+			  float: right;
+			  font-size: 22px;
+			  line-height: 20px;
+			  cursor: pointer;
+			  transition: 0.3s;
+			}
+			
+			.closebtn:hover {
+			  color:beige;
+			}
+			form { 
+			margin: 0 auto; 
+			width:350px;
+			padding-top: 50px;
+			padding-left: 12px;
+			padding-right: 12px;
+			}
+			</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="account">GO HOME</a>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="account">Home</a></li>
+					<li><a href="logout">Log out</a></li>
+				</ul>
+			</nav>
+			{% for message in messages %}
+			<div class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+				{{message}}
+			  </div>
+            		{% endfor %} 
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<h1>{% if depnam %} {{depnam.dep}}{% else %}View Staffs{% endif %}</h1>
+				</div>
+			</section>
+
+        <!-- Highlights -->
+        <form class="login100-form validate-form" action="viewdeptwise" method="POST">{% csrf_token %}
+            <select name="depname" id="type">
+			{% for x in deptmnts %}
+			<option value="{{ x.deptid }}">{{ x.dep }}</option>
+            {% endfor %}
+			</select>
+			<div style="padding-top: 20px;">
+            <button class="login100-form-btn" >
+                Search Staff
+			</button>
+		</div>
+		</form>
+		<div style="padding-top: 50px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>Retired/Current</th>
+                </tr>
+            </thead>
+            <tbody>
+			</div>		
+            {% for r in staffdata %}
+                    <tr>
+						<td><a href="update?id={{r.user_id}}" style="color:blue;">{{r.name}}</a></td>
+                        <td>{% if r.is_activate == 1 %}
+                            Current Staff
+                            {% else %}
+                            Retired Staff
+                            {% endif %}
+                        </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+		</table>
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

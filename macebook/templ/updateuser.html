@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+{% load static %}
+	<head>
+		<title>Macebook Home</title>
+		<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<style>
+			.alert {
+			  padding: 20px;
+			  background-color:green;
+			  color: white;
+			}
+			
+			.closebtn {
+			  margin-left: 15px;
+			  color:beige;
+			  font-weight: bold;
+			  float: right;
+			  font-size: 22px;
+			  line-height: 20px;
+			  cursor: pointer;
+			  transition: 0.3s;
+			}
+			
+			.closebtn:hover {
+			  color:beige;
+			}
+			form { 
+			margin: 0 auto; 
+			width:350px;
+			padding-top: 50px;
+			padding-left: 12px;
+			padding-right: 12px;
+			}
+			</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="account">GO HOME</a>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="account">Home</a></li>
+					<li><a href="logout">Log out</a></li>
+				</ul>
+			</nav>
+			{% for message in messages %}
+			<div class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+				{{message}}
+			  </div>
+            		{% endfor %} 
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+                    
+					<h1>{{user.name}}</h1>
+				</div>
+			</section>
+
+        <!-- Highlights -->
+        <form class="login100-form validate-form" action="update" method="POST">{% csrf_token %}
+            <div class="wrap-input100 validate-input" data-validate = "Valid name is required">
+                <input class="input100" type="text" name="name" placeholder="Name"  required value="{{user.name}}">
+            </div>
+            <br>
+            
+        <div class="wrap-input100 validate-input" data-validate = "Valid number is required">
+            <input class="input100" type="phone" name="mob" placeholder="Mobile number" required value={{user.phonenumber}}>
+            
+        </div>
+        <br>
+        <div class="wrap-input100 validate-input" data-validate = "Valid number is required">
+            <input class="input100" type="phone" name="land" placeholder="Land line" required value={{user.landnumber}}>
+
+        </div>
+        <br>
+        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+            <input class="input100" type="email" name="email" placeholder="Email" required value={{user.email}}>
+        
+        </div>
+        <br>
+        <div>
+        <br>
+        Select department:&nbsp
+        <select name="depname" id="dep">
+        {% for x in depkey %}
+			   <option value="{{ x.deptid }}"{% if user.dept == x %} selected {% endif %}>{{ x.dep }}</option>
+		{% endfor %}
+        </select>
+        <div>
+            <br>
+            Select designation type:&nbsp
+            <select name="type" id="type">
+				{% for x in staffkey %}
+				<option value="{{ x.staffid }}"{% if user.staff == x %} selected {% endif %}>{{ x.stafftype }}</option>
+				 {% endfor %}
+            </select>
+        </br>
+        </div>
+        <div>
+		<br>
+		Select employment status type:&nbsp
+		<select name="status" id="status">
+			<option value="1"{% if user.is_activate == 1 %} selected {% endif %}>Current Staff</option>
+			<option value="0"{% if user.is_activate == 0 %} selected {% endif %}>Retired Staff</option>
+		</select>
+        </br>
+        </div>
+		<br>
+		Password
+        <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+            <input class="input100" type="password" name="pass" placeholder="Leave it free if you don't want to change password" value="{{user.password}}">
+            <span class="focus-input100-1"></span>
+            <span class="focus-input100-2"></span>
+        </div>
+			<br>
+            <div class="container-login100-form-btn m-t-20">
+                <button class="login100-form-btn" name="id" value="{{user.user_id}}"  style="background-color:rgb(0, 255, 128);color:rgb(255, 255, 255);">
+                    Update 
+                </button>
+            </div>
+
+		</form>
+		<br>
+		<form method="GET" action="delete" style="padding: 10px;" onSubmit="if(!confirm('Are you sure delete {{user.name}} from Database...')){return false;}">
+			<button type="submit" onclick="show_alert()"  style="background-color:rgb(255, 0, 0);color:rgb(255, 255, 255);"name="id" value="{{user.user_id}}" >Delete Staff</button>
+		</form>
+		
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

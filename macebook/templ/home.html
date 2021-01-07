@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+{% load static %}
+	<head>
+		<title>Macebook Home</title>
+		<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<style>
+			.alert {
+			  padding: 20px;
+			  background-color:green;
+			  color: white;
+			}
+			
+			.closebtn {
+			  margin-left: 15px;
+			  color:beige;
+			  font-weight: bold;
+			  float: right;
+			  font-size: 22px;
+			  line-height: 20px;
+			  cursor: pointer;
+			  transition: 0.3s;
+			}
+			
+			.closebtn:hover {
+			  color:beige;
+			}
+			</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="account">GO HOME</a>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="account">Home</a></li>
+					<li><a href="logout">Log out</a></li>
+				</ul>
+			</nav>
+			{% for message in messages %}
+			<div class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+				{{message}}
+			  </div>
+            		{% endfor %} 
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<h1>MACEBOOK</h1>
+					<p>An online Phone Book designed for<br><a href="https://mace.ac.in/"> Mar Athnasius College Of Engineering Kothamangalam</a><br /></p>
+				</div>
+			</section>
+
+		<!-- Highlights -->
+			<section class="wrapper">
+				<div class="inner">
+	
+					<div class="highlights">
+						<section>
+							<div class="content">
+								<header>
+									<a href="upload" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<h3>Change Profile Picture</h3>
+								</header>
+								<p>You can edit your profile here.</p>
+							</div>
+						</section>
+					    <section>
+							<div class="content">
+								<header>
+									<a href="updateme" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<h3>MY PROFILE</h3>
+								</header>
+								<p>You can edit your profile here.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content" {% if flag.is_admin == 0 %} hidden{% endif %}>
+								<header>
+									<a href="pending" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<h3>PENDING FOR VERIFICATION</h3>
+								</header>
+								<p>All new unverified staffs displayed here.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content" {% if flag.is_admin == 0 %} hidden{% endif %}>
+								<header>
+									<a href="viewdeptwise" class="icon fa-files-o"><span class="label">Icon</span></a>
+									<h3>VIEW STAFF</h3>
+								</header>
+								<p>You can edit staff details and can change their username and password.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content" {% if flag.is_admin == 0 %} hidden{% endif %}>
+								<header>
+									<a href="adddeptmnt" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+									<h3>ADD DEPARTMENT</h3>
+								</header>
+								<p>Add new departments here.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content"{% if flag.is_admin == 0 %} hidden{% endif %}>
+								<header>
+									<a href="addstaff" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+									<h3>ADD DESIGNATION</h3>
+								</header>
+								<p>Add new designations here.</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
